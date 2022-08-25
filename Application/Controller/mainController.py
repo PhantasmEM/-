@@ -59,13 +59,18 @@ class mainController:
         delete()
 
     def write_instructions_file(self):
-        file = open('C:\\Offine_tools_config\\文件说明.txt', 'w')
-        file.write('此目录为 Offine tools 工具的配置文件目录')
+        try:
+            file = open('C:\\Offine_tools_config\\文件说明.txt', 'w')
+            file.write('此目录为 Offine tools 工具的配置文件目录')
+        except Exception as e:
+            print(e)
 
     # 重写关闭窗口事件
     def close_event(self,event):
         # 删除规则
         delete()
+        # 在配置文件夹这种写入说明文件
+        self.write_instructions_file()
         event.accept()
 
     # 保存界面配置
@@ -87,9 +92,6 @@ class mainController:
         # 循环遍历 保存配置
         for key, val in setting_dict.items():
             settings.setValue(key, val)
-
-        # 在配置文件夹这种写入说明文件
-        self.write_instructions_file()
 
         # 弹窗提示
         show_msg()
